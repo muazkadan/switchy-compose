@@ -44,5 +44,6 @@ dependencies {
     implementation(platform(Dependencies.composeBom))
     implementation(Dependencies.composeUI)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composeTooling)
 }

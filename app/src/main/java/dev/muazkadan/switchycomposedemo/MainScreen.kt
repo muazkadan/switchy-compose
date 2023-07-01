@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.muazkadan.switchycompose.ColoredSwitch
+import dev.muazkadan.switchycompose.CustomISwitch
+import dev.muazkadan.switchycompose.CustomSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
 import dev.muazkadan.switchycompose.TextSwitch
@@ -66,7 +72,45 @@ fun MainScreen() {
                     switchValue = it
                 },
             )
+            CustomISwitch(
+                switchValue = switchValue,
+                positiveContent = {
+                    Icon(
+                        imageVector = Icons.Default.Done,
+                        contentDescription = null
+                    )
+                },
+                negativeContent = {
+                    Text(text = "OFF")
+                },
+                onValueChanged = {
+                    switchValue = it
+                }
+            )
         }
+        Spacer(
+            modifier = Modifier.size(16.dp)
+        )
+        CustomSwitch(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            switchValue = switchValue,
+            onValueChanged = {
+                switchValue = it
+            },
+            positiveContent = {
+                Icon(
+                    imageVector = Icons.Default.Done,
+                    contentDescription = null,
+                )
+            },
+            negativeContent = {
+                Text(
+                    "False"
+                )
+            }
+        )
 
     }
 }
