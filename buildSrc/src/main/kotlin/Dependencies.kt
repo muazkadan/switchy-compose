@@ -12,6 +12,8 @@ object Dependencies {
 
     const val composeBom = "androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"
     const val composeUI = "androidx.compose.ui:ui"
+    const val composeFoundation = "androidx.compose.foundation:foundation"
+    const val composeMaterial = "androidx.compose.material3:material3"
     const val composeTooling = "androidx.compose.ui:ui-tooling"
     const val composeActivity = "androidx.activity:activity-compose:${Versions.COMPOSE_ACTIVITY}"
 }

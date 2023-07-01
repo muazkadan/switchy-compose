@@ -1,22 +1,15 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = "dev.muazkadan.switchycomposedemo"
+    namespace = "dev.muazkadan.switchycompose"
     compileSdk = Config.compileSdkVersion
 
     defaultConfig {
-        applicationId = "dev.muazkadan.switchycomposedemo"
         minSdk = Config.minSdkVersion
         targetSdk = Config.targetSdkVersion
-        versionCode = Config.versionCode
-        versionName = Config.versionName
-
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     compileOptions {
@@ -30,19 +23,16 @@ android {
 
 
     composeOptions.kotlinCompilerExtensionVersion = "1.3.2"
-
-    packaging {
-        resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
-    }
 }
 
 dependencies {
-    implementation(project(":switchycompose"))
+
     implementation(Dependencies.androidxCoreKtx)
     implementation(platform(Dependencies.kotlinBom))
     implementation(Dependencies.composeActivity)
     implementation(platform(Dependencies.composeBom))
     implementation(Dependencies.composeUI)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composeTooling)
 }
