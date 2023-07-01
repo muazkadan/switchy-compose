@@ -49,7 +49,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "dev.muazkadan.switchycompose"
                 artifactId = "switchy-compose"
-                version = "0.1.2"
+                version = "0.1.3"
             }
         }
     }

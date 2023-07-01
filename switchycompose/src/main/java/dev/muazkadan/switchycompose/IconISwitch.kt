@@ -127,7 +127,7 @@ fun IconISwitch(
 
 @Preview
 @Composable
-fun IconISwitchPreview() {
+private fun IconISwitchPreview() {
     IconISwitch(
         switchValue = true,
         onValueChanged = {}

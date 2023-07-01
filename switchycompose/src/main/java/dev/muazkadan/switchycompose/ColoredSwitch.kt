@@ -116,7 +116,7 @@ fun ColoredSwitch(
 
 @Preview
 @Composable
-fun ColoredSwitchPreview() {
+private fun ColoredSwitchPreview() {
     ColoredSwitch(
         switchValue = true,
         onValueChanged = {}

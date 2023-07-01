@@ -132,7 +132,7 @@ fun TextSwitch(
 
 @Preview
 @Composable
-fun TextSwitchPreview() {
+private fun TextSwitchPreview() {
     TextSwitch(
         switchValue = true,
         onValueChanged = {}

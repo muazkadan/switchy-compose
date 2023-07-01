@@ -124,7 +124,7 @@ fun CustomISwitch(
 
 @Preview
 @Composable
-fun CustomISwitchPreview() {
+private fun CustomISwitchPreview() {
     CustomISwitch(
         switchValue = true,
         onValueChanged = {},

@@ -112,7 +112,7 @@ fun ISwitch(
 
 @Preview
 @Composable
-fun ISwitchPreview() {
+private fun ISwitchPreview() {
     ISwitch(
         switchValue = true,
         onValueChanged = {}
