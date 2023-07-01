@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
@@ -35,4 +36,21 @@ dependencies {
     implementation(Dependencies.composeFoundation)
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composeTooling)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+                // Applies the component for the release build variant.
+                from(components["release"])
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = "dev.muazkadan.switchycompose"
+                artifactId = "switchy-compose"
+                version = "0.1.0"
+            }
+        }
+    }
 }

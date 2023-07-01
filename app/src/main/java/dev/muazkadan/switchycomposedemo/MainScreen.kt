@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.muazkadan.switchycompose.ColoredSwitch
@@ -28,10 +29,11 @@ import dev.muazkadan.switchycompose.TextSwitch
 @Composable
 fun MainScreen() {
     var switchValue by rememberSaveable { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(
             modifier = Modifier.size(16.dp)
         )
+        Text(text = "TextSwitch")
         TextSwitch(
             modifier = Modifier
                 .padding(horizontal = 16.dp),
@@ -43,6 +45,7 @@ fun MainScreen() {
         Spacer(
             modifier = Modifier.size(16.dp)
         )
+        Text(text = "ColoredSwitch")
         ColoredSwitch(
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,17 +59,18 @@ fun MainScreen() {
             modifier = Modifier.size(16.dp)
         )
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            Text(text = "ISwitch")
+            Text(text = "IconISwitch")
+            Text(text = "CustomISwitch")
+        }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             ISwitch(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
                 switchValue = switchValue,
                 onValueChanged = {
                     switchValue = it
                 },
             )
             IconISwitch(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
                 switchValue = switchValue,
                 onValueChanged = {
                     switchValue = it
@@ -91,10 +95,11 @@ fun MainScreen() {
         Spacer(
             modifier = Modifier.size(16.dp)
         )
+        Text(text = "CustomSwitch")
         CustomSwitch(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
             switchValue = switchValue,
             onValueChanged = {
                 switchValue = it
