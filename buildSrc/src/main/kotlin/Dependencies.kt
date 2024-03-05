@@ -1,9 +1,9 @@
 object Versions {
-    internal const val KOTLIN_BOM = "1.8.0"
-    internal const val ANDROIDX_CORE_KTX = "1.10.1"
+    internal const val KOTLIN_BOM = "1.9.22"
+    internal const val ANDROIDX_CORE_KTX = "1.12.0"
 
-    internal const val COMPOSE_BOM = "2023.05.01"
-    internal const val COMPOSE_ACTIVITY = "1.7.2"
+    internal const val COMPOSE_BOM = "2024.02.01"
+    internal const val COMPOSE_ACTIVITY = "1.8.2"
 }
 
 object Dependencies {

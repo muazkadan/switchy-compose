@@ -23,7 +23,7 @@ android {
     buildFeatures.compose = true
 
 
-    composeOptions.kotlinCompilerExtensionVersion = "1.3.2"
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
 }
 
 dependencies {
@@ -49,7 +49,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "dev.muazkadan.switchycompose"
                 artifactId = "switchy-compose"
-                version = "0.1.3"
+                version = "0.1.4"
             }
         }
     }
