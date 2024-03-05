@@ -22,13 +22,11 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun TextSwitch(
     modifier: Modifier = Modifier,
-    buttonHeight: Dp = ButtonDefaults.MinHeight,
     shape: RoundedCornerShape = RoundedCornerShape(10.dp),
     switchValue: Boolean,
     color: Color = MaterialTheme.colorScheme.primaryContainer,
@@ -39,6 +37,7 @@ fun TextSwitch(
     onValueChanged: (Boolean) -> Unit,
 ) {
     var width by remember { (mutableStateOf(0.dp)) }
+    var height by remember { (mutableStateOf(ButtonDefaults.MinHeight)) }
 
     val interactionSource = remember {
         MutableInteractionSource()
@@ -67,15 +66,18 @@ fun TextSwitch(
     Box(
         modifier = modifier
             .defaultMinSize(
-                minWidth = buttonHeight * 2,
-                minHeight = buttonHeight
+                minWidth = ButtonDefaults.MinHeight * 2,
+                minHeight = ButtonDefaults.MinHeight
             )
             .onGloballyPositioned {
                 width = with(localDensity) {
                     it.size.width.toDp()
                 }
+                height = with(localDensity) {
+                    it.size.height.toDp()
+                }
             }
-            .height(buttonHeight)
+            .height(height)
             .clip(shape = shape)
             .border(
                 width = 1.dp,
@@ -102,7 +104,7 @@ fun TextSwitch(
             )
             Box(
                 modifier = Modifier
-                    .height(buttonHeight)
+                    .height(height)
                     .width(width / 2)
                     .clip(shape = shape)
                     .background(color)
