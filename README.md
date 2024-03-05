@@ -24,7 +24,7 @@ and the dependency
 ```groovy
 dependencies {
 
-    implementation "com.github.muazkadan:switchy-compose:Tag:$version"
+    implementation "com.github.muazkadan:switchy-compose:$version"
 }
 ```
 
