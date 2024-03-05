@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.com.android.application)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
@@ -38,12 +38,12 @@ android {
 
 dependencies {
     implementation(project(":switchycompose"))
-    implementation(Dependencies.androidxCoreKtx)
-    implementation(platform(Dependencies.kotlinBom))
-    implementation(Dependencies.composeActivity)
-    implementation(platform(Dependencies.composeBom))
-    implementation(Dependencies.composeUI)
-    implementation(Dependencies.composeFoundation)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeTooling)
+    implementation(libs.androidx.core.ktx)
+    implementation(platform(libs.kotlin.bom))
+    implementation(libs.compose.activity)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material)
+    implementation(libs.compose.tooling)
 }
