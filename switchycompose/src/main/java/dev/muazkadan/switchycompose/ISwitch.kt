@@ -39,18 +39,14 @@ fun ISwitch(
         MutableInteractionSource()
     }
 
-    var switchClicked by remember {
-        mutableStateOf(switchValue)
-    }
-
     var padding by remember {
         mutableStateOf(0.dp)
     }
 
-    padding = if (switchClicked) 0.dp else width - (width / 2)
+    padding = if (switchValue) 0.dp else width - (width / 2)
 
     val animateSize by animateDpAsState(
-        targetValue = if (switchClicked) 0.dp else padding,
+        targetValue = if (switchValue) 0.dp else padding,
         tween(
             durationMillis = 333,
             delayMillis = 0,
@@ -59,7 +55,7 @@ fun ISwitch(
     )
 
     val animateBgColor by animateColorAsState(
-        targetValue = if (switchClicked) positiveColor else negativeColor,
+        targetValue = if (switchValue) positiveColor else negativeColor,
         tween(
             durationMillis = 333,
             delayMillis = 0,
@@ -86,8 +82,7 @@ fun ISwitch(
                 interactionSource = interactionSource,
                 indication = null
             ) {
-                switchClicked = !switchClicked
-                onValueChanged(switchClicked)
+                onValueChanged(!switchValue)
             }
     ) {
         Row {

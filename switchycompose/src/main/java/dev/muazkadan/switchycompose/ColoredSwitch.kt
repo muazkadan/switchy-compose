@@ -23,6 +23,17 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/**
+ * A composable function that creates a switch with customizable colors.
+ *
+ * @param modifier The modifier to be applied to the switch.
+ * @param shape The shape of the switch. Default is a rounded corner shape with a radius of 10.dp.
+ * @param switchValue The initial value of the switch. If true, the switch is in the 'on' state, otherwise it's in the 'off' state.
+ * @param positiveColor The color of the switch when it's in the 'on' state. Default is green.
+ * @param negativeColor The color of the switch when it's in the 'off' state. Default is red.
+ * @param borderColor The color of the switch's border. Default is the primary container color from the current MaterialTheme color scheme.
+ * @param onValueChanged A callback function that is invoked when the switch's value changes. It receives the new value of the switch as a parameter.
+ */
 @Composable
 fun ColoredSwitch(
     modifier: Modifier = Modifier,
@@ -40,18 +51,14 @@ fun ColoredSwitch(
         MutableInteractionSource()
     }
 
-    var switchClicked by remember {
-        mutableStateOf(switchValue)
-    }
-
     var padding by remember {
         mutableStateOf(0.dp)
     }
 
-    padding = if (switchClicked) 0.dp else width - (width / 2)
+    padding = if (switchValue) 0.dp else width - (width / 2)
 
     val animateSize by animateDpAsState(
-        targetValue = if (switchClicked) 0.dp else padding,
+        targetValue = if (switchValue) 0.dp else padding,
         tween(
             durationMillis = 333,
             delayMillis = 0,
@@ -60,7 +67,7 @@ fun ColoredSwitch(
     )
 
     val animateColor by animateColorAsState(
-        targetValue = if (switchClicked) positiveColor else negativeColor,
+        targetValue = if (switchValue) positiveColor else negativeColor,
         tween(
             durationMillis = 333,
             delayMillis = 0,
@@ -94,8 +101,7 @@ fun ColoredSwitch(
                 interactionSource = interactionSource,
                 indication = null
             ) {
-                switchClicked = !switchClicked
-                onValueChanged(switchClicked)
+                onValueChanged(!switchValue)
             }
     ) {
         Row {
