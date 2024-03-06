@@ -18,12 +18,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.muazkadan.switchycompose.ColoredSwitch
 import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
+import dev.muazkadan.switchycompose.SquareSwitch
 import dev.muazkadan.switchycompose.TextSwitch
 
 @Composable
@@ -116,6 +118,23 @@ fun MainScreen() {
                 )
             }
         )
-
+        Spacer(
+            modifier = Modifier.size(16.dp)
+        )
+        Text(text = "Square Switch")
+        SquareSwitch(
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
+            switchValue = switchValue,
+            onValueChanged = {
+                switchValue = it
+            }
+        )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MainScreenPreview() {
+    MainScreen()
 }
