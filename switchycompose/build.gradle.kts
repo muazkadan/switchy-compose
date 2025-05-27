@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     id("maven-publish")
 }
 
@@ -20,9 +21,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures.compose = true
-
-
-    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
 }
 
 dependencies {

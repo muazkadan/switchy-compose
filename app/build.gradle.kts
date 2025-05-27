@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -27,9 +28,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures.compose = true
-
-
-    composeOptions.kotlinCompilerExtensionVersion = "1.5.10"
 
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"

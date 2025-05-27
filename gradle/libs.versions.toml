@@ -1,14 +1,13 @@
 [versions]
-agp = "8.3.0"
-org-jetbrains-kotlin-android = "1.9.22"
-kotlin-bom = "1.9.22"
-androidx-core-ktx = "1.12.0"
-compose-bom = "2024.02.01"
-compose-activity = "1.8.2"
+agp = "8.10.0"
+kotlin = "2.1.21"
+androidx-core-ktx = "1.16.0"
+compose-bom = "2025.05.01"
+compose-activity = "1.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
-kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin-bom" }
+kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
@@ -19,4 +18,5 @@ compose-activity = { group = "androidx.activity", name = "activity-compose", ver
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
