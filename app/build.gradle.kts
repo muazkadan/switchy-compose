@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(":switchycompose:compose"))
+    implementation(project(":switchycompose:multiplatform"))
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.kotlin.bom))
     implementation(libs.compose.activity)
