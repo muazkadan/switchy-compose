@@ -39,6 +39,7 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.ui)
                 implementation(compose.components.uiToolingPreview)
+                implementation(compose.materialIconsExtended)
             }
         }
         val commonTest by getting {
