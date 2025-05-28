@@ -22,9 +22,17 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SwitchyCompose"
+            isStatic = true
+        }
+    }
+
     linuxX64()
 
     sourceSets {
@@ -71,7 +79,8 @@ mavenPublishing {
 
     pom {
         name = "Switchy Compose"
-        description = "A modern, customizable switch component library for Kotlin Multiplatform that provides beautiful animated switches with various styles and configurations."
+        description =
+            "A modern, customizable switch component library for Kotlin Multiplatform that provides beautiful animated switches with various styles and configurations."
         inceptionYear = "2025"
         url = "https://github.com/muazkadan/switchy-compose"
         licenses {
