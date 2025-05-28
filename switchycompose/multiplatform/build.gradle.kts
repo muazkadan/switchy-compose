@@ -33,8 +33,6 @@ kotlin {
         }
     }
 
-    linuxX64()
-
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
