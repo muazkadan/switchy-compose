@@ -3,3 +3,9 @@
 /workspace.xml
 # GitHub Copilot persisted chat sessions
 /copilot/chatSessions
+/AndroidProjectSystem.xml
+/appInsightsSettings.xml
+/deploymentTargetSelector.xml
+/migrations.xml
+/runConfigurations.xml
+/studiobot.xml
