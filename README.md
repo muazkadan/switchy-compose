@@ -1,10 +1,12 @@
 # Switchy Compose
 
 [![](https://jitpack.io/v/muazkadan/switchy-compose.svg)](https://jitpack.io/#muazkadan/switchy-compose)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.muazkadan/switchy-compose)](https://central.sonatype.com/search?q=switchy-compose)
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-blue.svg)](https://kotlinlang.org/docs/multiplatform.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A modern, customizable switch component library for Android Jetpack Compose that provides beautiful animated switches with various styles and configurations.
+A modern, customizable switch component library for Jetpack Compose that provides beautiful animated switches with various styles and configurations, now with multiplatform support!
 
 ## 🎬 Preview
 
@@ -13,6 +15,7 @@ A modern, customizable switch component library for Android Jetpack Compose that
 ## ✨ Features
 
 - **Multiple Switch Variants**: 6 different switch styles to choose from
+- **Multiplatform Support**: Works on Android, iOS and Desktop
 - **Smooth Animations**: Fluid transitions with customizable duration and easing
 - **Highly Customizable**: Colors, shapes, sizes, and content can be tailored to your needs
 - **Jetpack Compose Native**: Built specifically for Compose with modern UI patterns
@@ -39,7 +42,30 @@ A modern, customizable switch component library for Android Jetpack Compose that
 
 ## 📦 Installation
 
-### Step 1: Add JitPack repository
+### Option 1: Maven Central (Recommended)
+
+The library is available on Maven Central. No additional repository setup is required.
+
+#### For Android projects:
+
+```kotlin
+dependencies {
+    implementation("dev.muazkadan:switchy-compose:0.2")
+}
+```
+
+#### For Kotlin Multiplatform projects:
+
+```kotlin
+commonMain.dependencies {
+    implementation("dev.muazkadan:switchy-compose:0.2")
+}
+```
+
+<details>
+<summary><strong>Option 2: JitPack (Legacy)</strong></summary>
+
+#### Step 1: Add JitPack repository
 
 Add the JitPack repository to your project's `settings.gradle` file:
 
@@ -65,15 +91,14 @@ allprojects {
 }
 ```
 
-### Step 2: Add the dependency
-
-Add the dependency to your app-level `build.gradle` file:
+#### Step 2: Add the dependency
 
 ```kotlin
 dependencies {
-    implementation("com.github.muazkadan:switchy-compose:0.1.4")
+    implementation("com.github.muazkadan:switchy-compose:0.2")
 }
 ```
+</details>
 
 ## 🚀 Usage
 
@@ -280,9 +305,10 @@ limitations under the License.
 ## 🙏 Acknowledgments
 
 - Built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) for cross-platform support
 - Inspired by iOS switch design patterns
-- Published via [JitPack](https://jitpack.io/)
+- Published via [Maven Central](https://central.sonatype.com/) and [JitPack](https://jitpack.io/)
 
 ---
 
-**Made with ❤️ by [Muaz KADAN](https://github.com/muazkadan)**
+**Made with ❤️ by [Muaz KADAN](https://github.com/muazkadan)** | [LinkedIn](https://www.linkedin.com/in/muaz-kadan-727911107/)
