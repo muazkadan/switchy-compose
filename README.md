@@ -14,13 +14,14 @@ A modern, customizable switch component library for Jetpack Compose that provide
 
 ## ✨ Features
 
-- **Multiple Switch Variants**: 6 different switch styles to choose from
+- **Multiple Switch Variants**: 7 different switch styles to choose from
 - **Multiplatform Support**: Works on Android, iOS and Desktop
 - **Smooth Animations**: Fluid transitions with customizable duration and easing
 - **Highly Customizable**: Colors, shapes, sizes, and content can be tailored to your needs
 - **Jetpack Compose Native**: Built specifically for Compose with modern UI patterns
 - **Lightweight**: Minimal dependencies and optimized performance
 - **Material Design 3**: Follows Material Design guidelines and theming
+- **Platform Native Switches**: Use platform-specific native switch implementations
 
 ### Available Switch Types
 
@@ -31,6 +32,7 @@ A modern, customizable switch component library for Jetpack Compose that provide
 5. **CustomISwitch** - iOS-style switch with custom content
 6. **CustomSwitch** - Fully customizable switch with custom content
 7. **SquareSwitch** - Modern square-style switch
+8. **NativeSwitch** - Platform-specific native switch implementation (Material3 on Android, UIKit on iOS)
 
 ## 🛠 Technology Stack
 
@@ -234,6 +236,19 @@ SquareSwitch(
 )
 ```
 
+### NativeSwitch
+
+```kotlin
+var checked by rememberSaveable { mutableStateOf(false) }
+
+NativeSwitch(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    modifier = Modifier.padding(horizontal = 16.dp),
+    enabled = true
+)
+```
+
 ## 🎨 Customization
 
 ### Common Parameters
@@ -312,3 +327,5 @@ limitations under the License.
 ---
 
 **Made with ❤️ by [Muaz KADAN](https://github.com/muazkadan)** | [LinkedIn](https://www.linkedin.com/in/muaz-kadan-727911107/)
+
+
