@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id("maven-publish")
+//    id("maven-publish")
 }
 
 android {
@@ -35,19 +35,19 @@ dependencies {
     implementation(libs.compose.tooling)
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            create<MavenPublication>("release") {
-                // Applies the component for the release build variant.
-                from(components["release"])
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = "dev.muazkadan.switchycompose"
-                artifactId = "switchy-compose"
-                version = "0.2"
-            }
-        }
-    }
-}
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            // Creates a Maven publication called "release".
+//            create<MavenPublication>("release") {
+//                // Applies the component for the release build variant.
+//                from(components["release"])
+//
+//                // You can then customize attributes of the publication as shown below.
+//                groupId = "dev.muazkadan.switchycompose"
+//                artifactId = "switchy-compose"
+//                version = "0.2"
+//            }
+//        }
+//    }
+//}

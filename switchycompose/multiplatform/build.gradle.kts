@@ -71,7 +71,13 @@ android {
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
-    signAllPublications()
+    // Only sign if signing properties are available (e.g., for Maven Central)
+    // This prevents signing issues when building on JitPack
+    if (project.hasProperty("signing.keyId") && 
+        project.hasProperty("signing.password") && 
+        project.hasProperty("signing.secretKeyRingFile")) {
+        signAllPublications()
+    }
 
     coordinates(group.toString(), "switchy-compose", version.toString())
 
