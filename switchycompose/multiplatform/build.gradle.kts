@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -22,6 +25,9 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+
+    wasmJs { browser() }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -73,9 +79,10 @@ mavenPublishing {
 
     // Only sign if signing properties are available (e.g., for Maven Central)
     // This prevents signing issues when building on JitPack
-    if (project.hasProperty("signing.keyId") && 
-        project.hasProperty("signing.password") && 
-        project.hasProperty("signing.secretKeyRingFile")) {
+    if (project.hasProperty("signing.keyId") &&
+        project.hasProperty("signing.password") &&
+        project.hasProperty("signing.secretKeyRingFile")
+    ) {
         signAllPublications()
     }
 
