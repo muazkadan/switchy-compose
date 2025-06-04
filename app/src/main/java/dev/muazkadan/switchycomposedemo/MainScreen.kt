@@ -49,13 +49,13 @@ fun MainScreen() {
         )
         Text(text = "ColoredSwitch")
         ColoredSwitch(
+            checked = switchValue,
+            onCheckedChange = {
+                switchValue = it
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            switchValue = switchValue,
-            onValueChanged = {
-                switchValue = it
-            },
         )
         Spacer(
             modifier = Modifier.size(16.dp)
@@ -67,8 +67,8 @@ fun MainScreen() {
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             ISwitch(
-                switchValue = switchValue,
-                onValueChanged = {
+                checked = switchValue,
+                onCheckedChange = {
                     switchValue = it
                 },
             )
