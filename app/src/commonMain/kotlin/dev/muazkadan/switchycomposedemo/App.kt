@@ -24,6 +24,7 @@ import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
+import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
 import dev.muazkadan.switchycompose.TextSwitch
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -44,8 +45,8 @@ fun App() {
             TextSwitch(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
-                switchValue = switchValue,
-                onValueChanged = {
+                checked = switchValue,
+                onCheckedChange = {
                     switchValue = it
                 },
             )
@@ -57,8 +58,8 @@ fun App() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                switchValue = switchValue,
-                onValueChanged = {
+                checked = switchValue,
+                onCheckedChange = {
                     switchValue = it
                 },
             )
@@ -78,19 +79,19 @@ fun App() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 ISwitch(
-                    switchValue = switchValue,
-                    onValueChanged = {
+                    checked = switchValue,
+                    onCheckedChange = {
                         switchValue = it
                     },
                 )
                 IconISwitch(
-                    switchValue = switchValue,
-                    onValueChanged = {
+                    checked = switchValue,
+                    onCheckedChange = {
                         switchValue = it
                     },
                 )
                 CustomISwitch(
-                    switchValue = switchValue,
+                    checked = switchValue,
                     positiveContent = {
                         Icon(
                             imageVector = Icons.Default.Done,
@@ -100,7 +101,7 @@ fun App() {
                     negativeContent = {
                         Text(text = "OFF")
                     },
-                    onValueChanged = {
+                    onCheckedChange = {
                         switchValue = it
                     }
                 )
@@ -113,8 +114,8 @@ fun App() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                switchValue = switchValue,
-                onValueChanged = {
+                checked = switchValue,
+                onCheckedChange = {
                     switchValue = it
                 },
                 positiveContent = {
@@ -132,15 +133,35 @@ fun App() {
             Spacer(
                 modifier = Modifier.size(16.dp)
             )
-            Text(text = "Square Switch")
-            SquareSwitch(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
-                switchValue = switchValue,
-                onValueChanged = {
-                    switchValue = it
-                }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Text(text = "Square Switch")
+                Text(text = "Native Switch")
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                SquareSwitch(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    checked = switchValue,
+                    onCheckedChange = {
+                        switchValue = it
+                    }
+                )
+                NativeSwitch(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    checked = switchValue,
+                    onCheckedChange = {
+                        switchValue = it
+                    }
+                )
+            }
+
         }
     }
 }
