@@ -2,7 +2,6 @@ package dev.muazkadan.switchycompose
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -80,24 +79,27 @@ class ISwitchTest {
     @Test
     fun testOnCheckedChangeCallback() = runComposeUiTest {
         var callbackValue: Boolean? = null // Use nullable to ensure it's set by the callback
-        val initialCheckedState = false
+        val checkedState = mutableStateOf(false)
         setContent {
             MaterialTheme {
                 ISwitch(
                     modifier = Modifier.testTag(switchTag),
-                    checked = initialCheckedState,
-                    onCheckedChange = { callbackValue = it }
+                    checked = checkedState.value,
+                    onCheckedChange = {
+                        callbackValue = it
+                        checkedState.value = it
+                    }
                 )
             }
         }
 
         // Click to toggle
         onNodeWithTag(switchTag).performClick()
-        assertEquals(!initialCheckedState, callbackValue)
+        assertEquals(true, callbackValue)
 
         // Click again to toggle back
         onNodeWithTag(switchTag).performClick()
-        assertEquals(initialCheckedState, callbackValue)
+        assertEquals(false, callbackValue)
     }
 
     @Test
