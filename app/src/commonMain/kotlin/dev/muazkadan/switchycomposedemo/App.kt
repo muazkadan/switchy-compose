@@ -3,14 +3,10 @@ package dev.muazkadan.switchycomposedemo
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.filled.Done
@@ -20,12 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
 import dev.muazkadan.switchycompose.ColoredSwitch
@@ -51,7 +45,7 @@ internal fun App() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(16.dp)
         ) {
-            item {
+            item(span = { GridItemSpan(2) }) {
                 Column(
                     modifier = Modifier.padding(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,7 +109,7 @@ internal fun App() {
                     )
                 }
             }
-            item(span = { GridItemSpan(2) }) {
+            item {
                 Column(
                     modifier = Modifier.padding(8.dp).fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -140,7 +134,7 @@ internal fun App() {
                     )
                 }
             }
-            item {
+            item(span = { GridItemSpan(2) }) {
                 Column(
                     modifier = Modifier.padding(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
