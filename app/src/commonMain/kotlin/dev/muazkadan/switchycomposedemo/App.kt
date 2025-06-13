@@ -24,6 +24,7 @@ import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
+import dev.muazkadan.switchycompose.MorphingSwitch
 import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
 import dev.muazkadan.switchycompose.TextSwitch
@@ -161,7 +162,21 @@ fun App() {
                     }
                 )
             }
-
+            Spacer(
+                modifier = Modifier.size(16.dp)
+            )
+            Text(text = "MorphingSwitch")
+            MorphingSwitch(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                checked = switchValue,
+                onCheckedChange = {
+                    switchValue = it
+                }
+            )
+            Spacer(
+                modifier = Modifier.size(16.dp)
+            )
         }
     }
 }
