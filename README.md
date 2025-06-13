@@ -14,7 +14,7 @@ A modern, customizable switch component library for Jetpack Compose that provide
 
 ## ✨ Features
 
-- **Multiple Switch Variants**: 7 different switch styles to choose from
+- **Multiple Switch Variants**: 10 different switch styles to choose from
 - **Multiplatform Support**: Works on Android, iOS and Desktop
 - **Smooth Animations**: Fluid transitions with customizable duration and easing
 - **Highly Customizable**: Colors, shapes, sizes, and content can be tailored to your needs
@@ -52,7 +52,7 @@ The library is available on Maven Central. No additional repository setup is req
 
 ```kotlin
 dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.2")
+    implementation("dev.muazkadan:switchy-compose:0.5")
 }
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 
 ```kotlin
 commonMain.dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.2")
+    implementation("dev.muazkadan:switchy-compose:0.5")
 }
 ```
 
@@ -97,7 +97,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.github.muazkadan:switchy-compose:0.2")
+    implementation("com.github.muazkadan:switchy-compose:0.5")
 }
 ```
 </details>
@@ -112,8 +112,8 @@ fun MyScreen() {
     var switchValue by remember { mutableStateOf(false) }
     
     ISwitch(
-        switchValue = switchValue,
-        onValueChanged = { switchValue = it }
+        checked = switchValue,
+        onCheckedChange = { switchValue = it }
     )
 }
 ```
@@ -125,10 +125,10 @@ var switchValue by rememberSaveable { mutableStateOf(false) }
 
 TextSwitch(
     modifier = Modifier.padding(horizontal = 16.dp),
-    switchValue = switchValue,
+    checked = switchValue,
     positiveText = "ON",
     negativeText = "OFF",
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -141,10 +141,10 @@ ColoredSwitch(
     modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 16.dp),
-    switchValue = switchValue,
+    checked = switchValue,
     positiveColor = Color.Green,
     negativeColor = Color.Red,
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -154,11 +154,11 @@ ColoredSwitch(
 var switchValue by rememberSaveable { mutableStateOf(false) }
 
 ISwitch(
-    switchValue = switchValue,
+    checked = switchValue,
     buttonHeight = 40.dp,
     positiveColor = Color(0xFF35C759),
     negativeColor = Color(0xFFE9E9EA),
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -168,10 +168,10 @@ ISwitch(
 var switchValue by rememberSaveable { mutableStateOf(false) }
 
 IconISwitch(
-    switchValue = switchValue,
+    checked = switchValue,
     positiveIcon = Icons.Default.Done,
     negativeIcon = Icons.Default.Close,
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -181,7 +181,7 @@ IconISwitch(
 var switchValue by rememberSaveable { mutableStateOf(false) }
 
 CustomISwitch(
-    switchValue = switchValue,
+    checked = switchValue,
     positiveContent = {
         Icon(
             imageVector = Icons.Default.Done,
@@ -196,7 +196,7 @@ CustomISwitch(
             fontSize = 10.sp
         )
     },
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -209,7 +209,7 @@ CustomSwitch(
     modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 16.dp),
-    switchValue = switchValue,
+    checked = switchValue,
     positiveContent = {
         Icon(
             imageVector = Icons.Default.Done,
@@ -219,7 +219,7 @@ CustomSwitch(
     negativeContent = {
         Text("OFF")
     },
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -230,9 +230,9 @@ var switchValue by rememberSaveable { mutableStateOf(false) }
 
 SquareSwitch(
     modifier = Modifier.padding(horizontal = 16.dp),
-    switchValue = switchValue,
+    checked = switchValue,
     shape = RoundedCornerShape(4.dp),
-    onValueChanged = { switchValue = it }
+    onCheckedChange = { switchValue = it }
 )
 ```
 
@@ -265,12 +265,18 @@ NativeSwitch(
 - `innerPadding`: Padding inside the switch thumb
 - `positiveContent`/`negativeContent`: Custom composable content
 
-### Animation Customization
+## 🤝 Contributing
 
-All switches use smooth animations with:
-- **Duration**: 333ms
-- **Easing**: LinearOutSlowInEasing for size, FastOutSlowInEasing for colors
-- **Customizable**: Modify animation parameters in the source code
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Contributing Custom Switches
+
+Have an awesome custom Compose switch you'd like to share? We'd love to include it in Switchy Compose! Whether it's a unique animation, a creative design, or a platform-specific style, your custom switch could enhance the library. To contribute:
+
+1. Ensure your switch is built with Jetpack Compose and follows Kotlin coding conventions.
+2. Provide a clear API for your switch, similar to existing variants (e.g., `TextSwitch`, `ISwitch`).
+3. Include documentation and a demo in the `app` module to showcase your switch.
+4. Submit a Pull Request with your implementation, and we'll review it for inclusion.
 
 ## 📱 Demo App
 
@@ -279,10 +285,6 @@ The project includes a demo app showcasing all switch variants. To run the demo:
 1. Clone the repository
 2. Open in Android Studio
 3. Run the `app` module
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 ### Development Setup
 
