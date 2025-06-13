@@ -10,7 +10,7 @@ A modern, customizable switch component library for Jetpack Compose that provide
 
 ## 🎬 Preview
 
-<img src="preview/switchy_compose_preview.gif" width="874" alt="Switchy Compose Demo">
+<img src="preview/switchy_compose_preview.png" width="1280" alt="Switchy Compose Demo">
 
 ## ✨ Features
 
