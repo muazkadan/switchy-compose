@@ -27,6 +27,7 @@ import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
+import dev.muazkadan.switchycompose.HeartSwitch
 import dev.muazkadan.switchycompose.MorphingSwitch
 import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
@@ -130,6 +131,22 @@ internal fun App() {
                         },
                         onCheckedChange = {
                             customISwitchValue = it
+                        }
+                    )
+                }
+            }
+            item {
+                Column(
+                    modifier = Modifier.padding(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "HeartSwitch")
+                    var heartSwitchValue by rememberSaveable { mutableStateOf(false) }
+                    HeartSwitch(
+                        checked = heartSwitchValue,
+                        onCheckedChange = {
+                            heartSwitchValue = it
                         }
                     )
                 }
