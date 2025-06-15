@@ -40,6 +40,25 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.roundToInt
 
+/**
+ * A composable function that creates an interactive switch shaped like a heart.
+ * It provides visual feedback through color changes, animations, and an optional scaling effect on press.
+ *
+ * @param checked The current checked state of the switch.
+ * @param onCheckedChange Callback invoked when the switch state changes.
+ * @param modifier The modifier to be applied to the switch.
+ * @param enabled Whether the switch is enabled and can be interacted with. Default is true.
+ * @param positiveColor The fill color of the heart when the switch is in the 'on' (checked) state. Default is a pinkish red.
+ * @param negativeColor The fill color of the heart when the switch is in the 'off' (unchecked) state. Default is white.
+ * @param disabledPositiveColor The fill color of the heart when the switch is checked but disabled. Defaults to a less opaque version of [positiveColor].
+ * @param disabledNegativeColor The fill color of the heart when the switch is unchecked and disabled. Defaults to a less opaque version of [negativeColor].
+ * @param checkedBorderColor The border color of the heart when the switch is in the 'on' (checked) state. Default is a darker pinkish red.
+ * @param uncheckedBorderColor The border color of the heart when the switch is in the 'off' (unchecked) state. Default is a light gray.
+ * @param thumbColor The color of the movable thumb when the switch is in the 'on' (checked) state. Default is white.
+ * @param uncheckedThumbColor The color of the movable thumb when the switch is in the 'off' (unchecked) state. Default is a light gray.
+ * @param enableScaleAnimation Whether to enable a scaling animation when the switch is pressed. Default is true.
+ * @param interactionSource The MutableInteractionSource representing the stream of interactions with this switch.
+ */
 @Composable
 fun HeartSwitch(
     checked: Boolean,
