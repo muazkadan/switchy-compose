@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "dev.muazkadan"
-version = "0.5"
+version = "0.6"
 
 kotlin {
     jvm()
