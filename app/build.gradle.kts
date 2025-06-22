@@ -32,6 +32,20 @@ kotlin {
             isStatic = true
         }
     }
+
+    // macOS targets
+    listOf(
+        macosX64(),
+        macosArm64()
+    ).forEach { macosTarget ->
+        macosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+        macosTarget.binaries.executable {
+            entryPoint = "dev.muazkadan.switchycomposedemo.main"
+        }
+    }
     
     jvm("desktop")
 
