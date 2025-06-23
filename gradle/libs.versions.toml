@@ -33,4 +33,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.32.0" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.33.0" }
