@@ -40,6 +40,17 @@ kotlin {
         }
     }
 
+    // macOS targets
+    listOf(
+        macosX64(),
+        macosArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SwitchyCompose"
+            isStatic = true
+        }
+    }
+
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
