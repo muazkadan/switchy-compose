@@ -1,6 +1,7 @@
 package dev.muazkadan.switchycomposedemo
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
+import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import dev.muazkadan.switchycompose.ColoredSwitch
 import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
@@ -38,217 +40,220 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 internal fun App() {
     MaterialTheme {
-        LazyVerticalGrid(
-            columns = Adaptive(minSize = 150.dp),
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(16.dp)
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxSize()
         ) {
-            item(span = { GridItemSpan(2) }) {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "TextSwitch")
-                    var textSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    TextSwitch(
-                        checked = textSwitchValue,
-                        onCheckedChange = {
-                            textSwitchValue = it
-                        },
-                    )
+            LazyVerticalGrid(
+                columns = if (maxWidth < 350.dp) Fixed(1) else Adaptive(minSize = 150.dp),
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(if (maxWidth < 350.dp) 8.dp else 16.dp)
+            ) {
+                item(span = { GridItemSpan(if (maxWidth < 350.dp) 1 else 2) }) {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "TextSwitch")
+                        var textSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        TextSwitch(
+                            checked = textSwitchValue,
+                            onCheckedChange = {
+                                textSwitchValue = it
+                            },
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "ColoredSwitch")
-                    var coloredSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    ColoredSwitch(
-                        checked = coloredSwitchValue,
-                        onCheckedChange = {
-                            coloredSwitchValue = it
-                        },
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "ColoredSwitch")
+                        var coloredSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        ColoredSwitch(
+                            checked = coloredSwitchValue,
+                            onCheckedChange = {
+                                coloredSwitchValue = it
+                            },
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "ISwitch")
-                    var iSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    ISwitch(
-                        checked = iSwitchValue,
-                        onCheckedChange = {
-                            iSwitchValue = it
-                        },
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "ISwitch")
+                        var iSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        ISwitch(
+                            checked = iSwitchValue,
+                            onCheckedChange = {
+                                iSwitchValue = it
+                            },
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "IconISwitch")
-                    var iconISwitchValue by rememberSaveable { mutableStateOf(false) }
-                    IconISwitch(
-                        checked = iconISwitchValue,
-                        onCheckedChange = {
-                            iconISwitchValue = it
-                        },
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "IconISwitch")
+                        var iconISwitchValue by rememberSaveable { mutableStateOf(false) }
+                        IconISwitch(
+                            checked = iconISwitchValue,
+                            onCheckedChange = {
+                                iconISwitchValue = it
+                            },
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp).fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "CustomISwitch")
-                    var customISwitchValue by rememberSaveable { mutableStateOf(false) }
-                    CustomISwitch(
-                        checked = customISwitchValue,
-                        positiveContent = {
-                            Icon(
-                                imageVector = Icons.Default.Done,
-                                contentDescription = null
-                            )
-                        },
-                        negativeContent = {
-                            Text(text = "OFF")
-                        },
-                        onCheckedChange = {
-                            customISwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "CustomISwitch")
+                        var customISwitchValue by rememberSaveable { mutableStateOf(false) }
+                        CustomISwitch(
+                            checked = customISwitchValue,
+                            positiveContent = {
+                                Icon(
+                                    imageVector = Icons.Default.Done,
+                                    contentDescription = null
+                                )
+                            },
+                            negativeContent = {
+                                Text(text = "OFF")
+                            },
+                            onCheckedChange = {
+                                customISwitchValue = it
+                            }
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "HeartSwitch")
-                    var heartSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    HeartSwitch(
-                        checked = heartSwitchValue,
-                        onCheckedChange = {
-                            heartSwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "HeartSwitch")
+                        var heartSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        HeartSwitch(
+                            checked = heartSwitchValue,
+                            onCheckedChange = {
+                                heartSwitchValue = it
+                            }
+                        )
+                    }
                 }
-            }
-            item(span = { GridItemSpan(2) }) {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "CustomSwitch")
-                    var customSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    CustomSwitch(
-                        checked = customSwitchValue,
-                        onCheckedChange = {
-                            customSwitchValue = it
-                        },
-                        positiveContent = {
-                            Icon(
-                                imageVector = Icons.Default.Done,
-                                contentDescription = null,
-                            )
-                        },
-                        negativeContent = {
-                            Text(
-                                "False"
-                            )
-                        }
-                    )
+                item(span = { GridItemSpan(if (maxWidth < 350.dp) 1 else 2) }) {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "CustomSwitch")
+                        var customSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        CustomSwitch(
+                            checked = customSwitchValue,
+                            onCheckedChange = {
+                                customSwitchValue = it
+                            },
+                            positiveContent = {
+                                Icon(
+                                    imageVector = Icons.Default.Done,
+                                    contentDescription = null,
+                                )
+                            },
+                            negativeContent = {
+                                Text(
+                                    "False"
+                                )
+                            }
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "Square Switch")
-                    var squareSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    SquareSwitch(
-                        checked = squareSwitchValue,
-                        onCheckedChange = {
-                            squareSwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Square Switch")
+                        var squareSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        SquareSwitch(
+                            checked = squareSwitchValue,
+                            onCheckedChange = {
+                                squareSwitchValue = it
+                            }
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "Native Switch")
-                    var nativeSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    NativeSwitch(
-                        checked = nativeSwitchValue,
-                        onCheckedChange = {
-                            nativeSwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Native Switch")
+                        var nativeSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        NativeSwitch(
+                            checked = nativeSwitchValue,
+                            onCheckedChange = {
+                                nativeSwitchValue = it
+                            }
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "CustomISwitch")
-                    var customISwitchValue by rememberSaveable { mutableStateOf(false) }
-                    CustomISwitch(
-                        checked = customISwitchValue,
-                        positiveContent = {
-                            Icon(
-                                imageVector = Icons.Default.Done,
-                                contentDescription = null
-                            )
-                        },
-                        negativeContent = {
-                            Text(text = "OFF")
-                        },
-                        onCheckedChange = {
-                            customISwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "CustomISwitch")
+                        var customISwitchValue by rememberSaveable { mutableStateOf(false) }
+                        CustomISwitch(
+                            checked = customISwitchValue,
+                            positiveContent = {
+                                Icon(
+                                    imageVector = Icons.Default.Done,
+                                    contentDescription = null
+                                )
+                            },
+                            negativeContent = {
+                                Text(text = "OFF")
+                            },
+                            onCheckedChange = {
+                                customISwitchValue = it
+                            }
+                        )
+                    }
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "MorphingSwitch")
-                    var morphingSwitchValue by rememberSaveable { mutableStateOf(false) }
-                    MorphingSwitch(
-                        checked = morphingSwitchValue,
-                        onCheckedChange = {
-                            morphingSwitchValue = it
-                        }
-                    )
+                item {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "MorphingSwitch")
+                        var morphingSwitchValue by rememberSaveable { mutableStateOf(false) }
+                        MorphingSwitch(
+                            checked = morphingSwitchValue,
+                            onCheckedChange = {
+                                morphingSwitchValue = it
+                            }
+                        )
+                    }
                 }
             }
         }
