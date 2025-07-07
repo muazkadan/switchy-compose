@@ -1,13 +1,13 @@
 [versions]
 agp = "8.10.1"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 androidx-core-ktx = "1.16.0"
-compose-bom = "2025.06.00"
+compose-bom = "2025.06.01"
 compose-activity = "1.10.1"
 android-minSdk = "21"
 android-compileSdk = "35"
-compose-multiplatform = "1.8.1"
-composeHotReload = "1.0.0-alpha10"
+compose-multiplatform = "1.8.2"
+composeHotReload = "1.0.0-beta01"
 androidx-lifecycle = "2.9.1"
 kotlinx-coroutines = "1.10.2"
 
@@ -33,4 +33,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.32.0" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.33.0" }
