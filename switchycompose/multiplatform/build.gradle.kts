@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "dev.muazkadan"
-version = "0.6.1"
+version = "0.6.5"
 
 kotlin {
     jvm()
@@ -33,6 +33,17 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SwitchyCompose"
+            isStatic = true
+        }
+    }
+
+    // macOS targets
+    listOf(
+        macosX64(),
+        macosArm64()
     ).forEach {
         it.binaries.framework {
             baseName = "SwitchyCompose"
