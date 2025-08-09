@@ -1,6 +1,5 @@
 @file:OptIn(ExperimentalWasmDsl::class, ExperimentalComposeLibrary::class)
 
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -92,7 +91,7 @@ android {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
 
     // Only sign if signing properties are available (e.g., for Maven Central)
     // This prevents signing issues when building on JitPack
