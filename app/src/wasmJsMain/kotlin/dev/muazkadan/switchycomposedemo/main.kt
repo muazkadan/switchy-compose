@@ -20,7 +20,7 @@ fun main() {
         ) {
             // Hide PhoneFrame on smaller screens (phones)
             // Show PhoneFrame only on larger screens (tablets/desktop)
-            if (maxWidth >= 412.dp && maxHeight >= 791.dp) {
+            if (maxWidth >= 410.dp && maxHeight >= 791.dp) {
                 // Large screen - show PhoneFrame with App inside
                 Box(
                     modifier = Modifier.fillMaxSize().padding(16.dp),
