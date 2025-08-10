@@ -52,7 +52,7 @@ The library is available on Maven Central. No additional repository setup is req
 
 ```kotlin
 dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.5")
+    implementation("dev.muazkadan:switchy-compose:0.7.0")
 }
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 
 ```kotlin
 commonMain.dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.5")
+    implementation("dev.muazkadan:switchy-compose:0.7.0")
 }
 ```
 
@@ -97,7 +97,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.github.muazkadan:switchy-compose:0.5")
+    implementation("com.github.muazkadan:switchy-compose:0.7.0")
 }
 ```
 </details>
