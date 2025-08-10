@@ -1,5 +1,6 @@
-import org.gradle.kotlin.dsl.implementation
-import org.gradle.kotlin.dsl.project
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.gradle.kotlin.dsl.assign
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -49,10 +50,9 @@ kotlin {
     
     jvm("desktop")
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        outputModuleName = "composeApp"
-        browser {
+    listOf(js(), wasmJs()).forEach { target ->
+        target.outputModuleName = "composeApp"
+        target.browser {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
             commonWebpackConfig {
@@ -66,7 +66,8 @@ kotlin {
                 }
             }
         }
-        binaries.executable()
+        target.binaries.executable()
+
     }
     
     sourceSets {
