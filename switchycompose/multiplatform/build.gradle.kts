@@ -26,6 +26,8 @@ kotlin {
         }
     }
 
+    js { browser() }
+
     wasmJs { browser() }
 
     listOf(
