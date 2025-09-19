@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
+import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,14 +24,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
-import androidx.compose.foundation.lazy.grid.GridCells.Fixed
+import androidx.compose.ui.unit.sp
 import dev.muazkadan.switchycompose.ColoredSwitch
 import dev.muazkadan.switchycompose.CustomISwitch
 import dev.muazkadan.switchycompose.CustomSwitch
+import dev.muazkadan.switchycompose.HeartSwitch
 import dev.muazkadan.switchycompose.ISwitch
 import dev.muazkadan.switchycompose.IconISwitch
-import dev.muazkadan.switchycompose.HeartSwitch
 import dev.muazkadan.switchycompose.MorphingSwitch
 import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
@@ -125,13 +126,24 @@ internal fun App() {
                         CustomISwitch(
                             checked = customISwitchValue,
                             positiveContent = {
-                                Icon(
-                                    imageVector = Icons.Default.Done,
-                                    contentDescription = null
+                                // Icon(
+                                //     imageVector = Icons.Default.Done,
+                                //     contentDescription = null
+                                // )
+                                Text(
+                                    text = "Enabled",
+                                    maxLines = 1,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(horizontal = 3.dp),
                                 )
                             },
                             negativeContent = {
-                                Text(text = "OFF")
+                                Text(
+                                    text = "Disabled",
+                                    maxLines = 1,
+                                    fontSize = 12.sp,
+                                    modifier = Modifier.padding(horizontal = 3.dp),
+                                )
                             },
                             onCheckedChange = {
                                 customISwitchValue = it
