@@ -2,7 +2,7 @@
 agp = "8.12.0"
 kotlin = "2.2.0"
 androidx-core-ktx = "1.16.0"
-compose-bom = "2025.07.00"
+compose-bom = "2025.09.01"
 compose-activity = "1.10.1"
 android-minSdk = "21"
 android-compileSdk = "35"
