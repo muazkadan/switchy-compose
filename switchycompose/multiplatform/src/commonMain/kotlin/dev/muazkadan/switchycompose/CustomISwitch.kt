@@ -9,20 +9,37 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
-import androidx.compose.runtime.*
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
@@ -65,11 +82,10 @@ fun CustomISwitch(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     var width by remember { mutableStateOf(0.dp) }
+    var thumbWidth by remember { mutableStateOf(0.dp) }
 
     val thumbOffset by remember(checked, width) {
-        derivedStateOf {
-            if (checked) width - buttonHeight else 0.dp
-        }
+        derivedStateOf { if (checked) width - thumbWidth else 0.dp }
     }
 
 
@@ -109,11 +125,7 @@ fun CustomISwitch(
                 minWidth = buttonHeight * 2,
                 minHeight = buttonHeight
             )
-            .onGloballyPositioned { coordinates ->
-                width = with(localDensity) {
-                    coordinates.size.width.toDp()
-                }
-            }
+            .onSizeChanged { width = with(localDensity) { it.width.toDp() } }
             .height(buttonHeight)
             .clip(shape = shape)
             .background(animatedBackgroundColor)
@@ -142,7 +154,10 @@ fun CustomISwitch(
             )
             Box(
                 modifier = Modifier
-                    .size(buttonHeight)
+                    .height(buttonHeight)
+                    .onSizeChanged { thumbWidth = with(localDensity) { it.width.toDp() } }
+                    .wrapContentWidth()
+                    .widthIn(buttonHeight)
                     .padding(innerPadding)
                     .shadow(elevation = 5.dp, shape)
                     .clip(shape = shape)
@@ -207,12 +222,21 @@ private fun CustomISwitchPreview() {
             checked = checked1,
             onCheckedChange = { checked1 = it },
             positiveContent = {
-                Icon(
-                    imageVector = Icons.Default.Done,
-                    contentDescription = null
+                // Icon(
+                //     imageVector = Icons.Default.Done,
+                //     contentDescription = null,
+                // )
+                Text(
+                    "Enabled",
+                    modifier = Modifier.padding(horizontal = 3.dp),
                 )
             },
-            negativeContent = {}
+            negativeContent = {
+                Text(
+                    "Disabled",
+                    modifier = Modifier.padding(horizontal = 3.dp),
+                )
+            }
         )
 
         var checked2 by remember { mutableStateOf(false) }
