@@ -6,7 +6,7 @@ android-minSdk = "21"
 android-compileSdk = "35"
 compose-multiplatform = "1.8.2"
 composeHotReload = "1.1.0-alpha03"
-androidx-lifecycle = "2.9.1"
+androidx-lifecycle = "2.9.6"
 kotlinx-coroutines = "1.10.2"
 
 [libraries]
