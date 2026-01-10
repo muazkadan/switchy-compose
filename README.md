@@ -15,7 +15,7 @@ A modern, customizable switch component library for Jetpack Compose that provide
 ## ✨ Features
 
 - **Multiple Switch Variants**: 10 different switch styles to choose from
-- **Multiplatform Support**: Works on Android, iOS and Desktop
+- **Multiplatform Support**: Works on Android, iOS, Web and Desktop
 - **Smooth Animations**: Fluid transitions with customizable duration and easing
 - **Highly Customizable**: Colors, shapes, sizes, and content can be tailored to your needs
 - **Jetpack Compose Native**: Built specifically for Compose with modern UI patterns
@@ -52,7 +52,7 @@ The library is available on Maven Central. No additional repository setup is req
 
 ```kotlin
 dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.7.0")
+    implementation("dev.muazkadan:switchy-compose:0.7.1")
 }
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 
 ```kotlin
 commonMain.dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.7.0")
+    implementation("dev.muazkadan:switchy-compose:0.7.1")
 }
 ```
 
@@ -97,7 +97,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.github.muazkadan:switchy-compose:0.7.0")
+    implementation("com.github.muazkadan:switchy-compose:0.7.1")
 }
 ```
 </details>
