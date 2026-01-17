@@ -3,6 +3,7 @@ package dev.muazkadan.switchycompose
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitInteropProperties
@@ -23,7 +24,7 @@ private class SwitchTarget(
     }
 }
 
-@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class, ExperimentalComposeUiApi::class)
 @Composable
 actual fun NativeSwitch(
     checked: Boolean,
@@ -83,8 +84,7 @@ actual fun NativeSwitch(
             }
         },
         properties = UIKitInteropProperties(
-            isInteractive = true,
-            isNativeAccessibilityEnabled = true
+            placedAsOverlay = true,
         )
     )
 }
