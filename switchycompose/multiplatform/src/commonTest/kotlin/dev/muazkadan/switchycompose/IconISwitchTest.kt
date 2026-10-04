@@ -4,10 +4,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
@@ -17,7 +15,6 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -111,34 +108,14 @@ class IconISwitchTest {
 
     @Test
     fun testWidthStaysStableWhenToggled() = runComposeUiTest {
-        val checkedState = mutableStateOf(false)
-        setContent {
-            // A fractional density makes dp -> px rounding visible (see issue #70)
-            CompositionLocalProvider(LocalDensity provides Density(2.75f)) {
-                MaterialTheme {
-                    IconISwitch(
-                        modifier = Modifier.testTag(switchTag),
-                        checked = checkedState.value,
-                        onCheckedChange = { checkedState.value = it },
-                        buttonHeight = 26.dp
-                    )
-                }
-            }
+        assertWidthStableWhenToggled(tag = switchTag, density = 2.75f) { checked, onCheckedChange ->
+            IconISwitch(
+                modifier = Modifier.testTag(switchTag),
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                buttonHeight = 26.dp
+            )
         }
-
-        waitForIdle()
-        val initialWidth = onNodeWithTag(switchTag).fetchSemanticsNode().boundsInRoot.width
-
-        onNodeWithTag(switchTag).performClick()
-        waitForIdle()
-        val checkedWidth = onNodeWithTag(switchTag).fetchSemanticsNode().boundsInRoot.width
-
-        onNodeWithTag(switchTag).performClick()
-        waitForIdle()
-        val uncheckedWidth = onNodeWithTag(switchTag).fetchSemanticsNode().boundsInRoot.width
-
-        assertEquals(initialWidth, checkedWidth)
-        assertEquals(initialWidth, uncheckedWidth)
     }
 
     @Test

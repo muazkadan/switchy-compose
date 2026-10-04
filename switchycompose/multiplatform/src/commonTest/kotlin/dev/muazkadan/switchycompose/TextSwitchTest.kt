@@ -103,6 +103,17 @@ class TextSwitchTest {
     }
 
     @Test
+    fun testWidthStaysStableWhenToggled() = runComposeUiTest {
+        assertWidthStableWhenToggled(tag = switchTag, density = 1.33125f) { checked, onCheckedChange ->
+            TextSwitch(
+                modifier = Modifier.testTag(switchTag),
+                checked = checked,
+                onCheckedChange = onCheckedChange
+            )
+        }
+    }
+
+    @Test
     fun testDisabledStateUnchecked() = runComposeUiTest {
         val checkedState = mutableStateOf(false)
         var callbackCalled = false

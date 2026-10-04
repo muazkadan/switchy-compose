@@ -3,7 +3,6 @@ package dev.muazkadan.switchycompose
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -20,8 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -55,22 +52,13 @@ fun ColoredSwitch(
     borderColor: Color = MaterialTheme.colorScheme.primaryContainer,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    var width by remember { mutableStateOf(0.dp) }
-    var height by remember { mutableStateOf(ButtonDefaults.MinHeight) }
-
-    val thumbOffset by remember(checked, width) {
-        derivedStateOf {
-            if (checked) width - (width / 2) else 0.dp
-        }
-    }
-
-    val animatedThumbOffset by animateDpAsState(
-        targetValue = thumbOffset,
+    val thumbProgress by animateFloatAsState(
+        targetValue = if (checked) 1f else 0f,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessMedium
         ),
-        label = "thumb_offset"
+        label = "thumb_progress"
     )
 
     val animatedColor by animateColorAsState(
@@ -93,22 +81,12 @@ fun ColoredSwitch(
         label = "switch_alpha"
     )
 
-    val localDensity = LocalDensity.current
     Box(
         modifier = modifier
             .defaultMinSize(
                 minWidth = ButtonDefaults.MinHeight * 2,
                 minHeight = ButtonDefaults.MinHeight
             )
-            .onGloballyPositioned { coordinates ->
-                width = with(localDensity) {
-                    coordinates.size.width.toDp()
-                }
-                height = with(localDensity) {
-                    coordinates.size.height.toDp()
-                }
-            }
-            .height(height)
             .clip(shape = shape)
             .border(
                 width = 1.dp,
@@ -130,22 +108,15 @@ fun ColoredSwitch(
                 }
             )
     ) {
-        Row {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(animatedThumbOffset)
-                    .background(Color.Transparent)
-            )
-            Box(
-                modifier = Modifier
-                    .height(height)
-                    .width(width / 2)
-                    .clip(shape = shape)
-                    .background(animatedColor)
-                    .alpha(animatedAlpha)
-            )
-        }
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .horizontalThumbPosition { thumbProgress }
+                .fillMaxWidth(0.5f)
+                .clip(shape = shape)
+                .background(animatedColor)
+                .alpha(animatedAlpha)
+        )
     }
 }
 
