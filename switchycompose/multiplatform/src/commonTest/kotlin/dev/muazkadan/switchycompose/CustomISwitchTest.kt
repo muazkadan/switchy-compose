@@ -17,6 +17,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.unit.dp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -129,6 +130,33 @@ class CustomISwitchTest {
         // Click again to toggle back
         onNodeWithTag(switchTag).performClick()
         assertEquals(false, callbackValue)
+    }
+
+    @Test
+    fun testWidthStaysStableWhenToggled() = runComposeUiTest {
+        assertWidthStableWhenToggled(tag = switchTag, density = 1.33125f) { checked, onCheckedChange ->
+            CustomISwitch(
+                modifier = Modifier.testTag(switchTag),
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                positiveContent = { Text("ON") },
+                negativeContent = { Text("OFF") }
+            )
+        }
+    }
+
+    @Test
+    fun testWidthStaysStableWhenToggledWithCustomHeight() = runComposeUiTest {
+        assertWidthStableWhenToggled(tag = switchTag, density = 2.75f) { checked, onCheckedChange ->
+            CustomISwitch(
+                modifier = Modifier.testTag(switchTag),
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                buttonHeight = 26.dp,
+                positiveContent = { Text("ON") },
+                negativeContent = { Text("OFF") }
+            )
+        }
     }
 
     @Test
