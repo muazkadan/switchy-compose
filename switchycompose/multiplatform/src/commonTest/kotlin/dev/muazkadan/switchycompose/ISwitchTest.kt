@@ -1,5 +1,6 @@
 package dev.muazkadan.switchycompose
 
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
@@ -7,10 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
-import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
@@ -136,6 +139,42 @@ class ISwitchTest {
 
         assertEquals(initialWidth, checkedWidth)
         assertEquals(initialWidth, uncheckedWidth)
+    }
+
+    @Test
+    fun testDefaultSize() = runComposeUiTest {
+        setContent {
+            MaterialTheme {
+                ISwitch(
+                    modifier = Modifier.testTag(switchTag),
+                    checked = false,
+                    onCheckedChange = { },
+                    buttonHeight = 26.dp
+                )
+            }
+        }
+
+        onNodeWithTag(switchTag)
+            .assertWidthIsEqualTo(52.dp)
+            .assertHeightIsEqualTo(26.dp)
+    }
+
+    @Test
+    fun testCallerWidthOverridesDefaultWidth() = runComposeUiTest {
+        setContent {
+            MaterialTheme {
+                ISwitch(
+                    modifier = Modifier
+                        .testTag(switchTag)
+                        .width(100.dp),
+                    checked = true,
+                    onCheckedChange = { },
+                    buttonHeight = 26.dp
+                )
+            }
+        }
+
+        onNodeWithTag(switchTag).assertWidthIsEqualTo(100.dp)
     }
 
     @Test
