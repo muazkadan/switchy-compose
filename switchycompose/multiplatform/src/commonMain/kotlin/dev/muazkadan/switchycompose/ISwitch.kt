@@ -3,7 +3,6 @@ package dev.muazkadan.switchycompose
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -18,8 +17,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -56,21 +53,13 @@ fun ISwitch(
     disabledNegativeColor: Color = negativeColor.copy(alpha = 0.38f),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    var width by remember { mutableStateOf(0.dp) }
-
-    val thumbOffset by remember(checked, width) {
-        derivedStateOf {
-            if (checked) width - buttonHeight else 0.dp
-        }
-    }
-
-    val animatedThumbOffset by animateDpAsState(
-        targetValue = thumbOffset,
+    val thumbProgress by animateFloatAsState(
+        targetValue = if (checked) 1f else 0f,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessMedium
         ),
-        label = "thumb_offset"
+        label = "thumb_progress"
     )
 
     val animatedBackgroundColor by animateColorAsState(
@@ -93,19 +82,9 @@ fun ISwitch(
         label = "switch_alpha"
     )
 
-    val localDensity = LocalDensity.current
     Box(
         modifier = modifier
-            .defaultMinSize(
-                minWidth = buttonHeight * 2,
-                minHeight = buttonHeight
-            )
-            .onGloballyPositioned { coordinates ->
-                width = with(localDensity) {
-                    coordinates.size.width.toDp()
-                }
-            }
-            .height(buttonHeight)
+            .size(width = buttonHeight * 2, height = buttonHeight)
             .clip(shape = shape)
             .background(animatedBackgroundColor)
             .alpha(animatedAlpha)
@@ -124,22 +103,15 @@ fun ISwitch(
                 }
             )
     ) {
-        Row {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(animatedThumbOffset)
-                    .background(Color.Transparent)
-            )
-            Box(
-                modifier = Modifier
-                    .size(buttonHeight)
-                    .padding(innerPadding)
-                    .shadow(elevation = 5.dp, shape)
-                    .clip(shape = shape)
-                    .background(Color.White)
-            )
-        }
+        Box(
+            modifier = Modifier
+                .horizontalThumbPosition { thumbProgress }
+                .size(buttonHeight)
+                .padding(innerPadding)
+                .shadow(elevation = 5.dp, shape)
+                .clip(shape = shape)
+                .background(Color.White)
+        )
     }
 }
 
