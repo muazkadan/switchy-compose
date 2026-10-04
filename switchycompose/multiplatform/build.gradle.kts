@@ -31,7 +31,6 @@ kotlin {
     wasmJs { browser() }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
@@ -43,7 +42,6 @@ kotlin {
 
     // macOS targets
     listOf(
-        macosX64(),
         macosArm64()
     ).forEach {
         it.binaries.framework {

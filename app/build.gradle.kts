@@ -23,7 +23,6 @@ kotlin {
     }
     
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -35,7 +34,6 @@ kotlin {
 
     // macOS targets
     listOf(
-        macosX64(),
         macosArm64()
     ).forEach { macosTarget ->
         macosTarget.binaries.framework {
