@@ -58,6 +58,19 @@ kotlin {
         }
     }
 
+    // NativeSwitch is Material3's Switch on these targets and a native Swing/UIKit view on
+    // jvm and iOS. Group them so tests of the Compose implementation (materialSwitchTest)
+    // only run where it is used; interop views can't be hosted in headless UI tests.
+    applyDefaultHierarchyTemplate {
+        common {
+            group("materialSwitch") {
+                withJs()
+                withWasmJs()
+                withMacos()
+            }
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.compose.runtime)
