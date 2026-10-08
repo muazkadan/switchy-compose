@@ -9,7 +9,7 @@ compose-material3 = "1.9.0"
 # Pinned upstream: no longer updated after 1.7.3
 compose-material-icons = "1.7.3"
 androidx-lifecycle = "2.9.6"
-kotlinx-coroutines = "1.10.2"
+kotlinx-coroutines = "1.11.0"
 
 [libraries]
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
