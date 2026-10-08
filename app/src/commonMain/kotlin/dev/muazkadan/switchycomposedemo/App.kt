@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.muazkadan.switchycompose.ColoredSwitch
@@ -35,11 +36,10 @@ import dev.muazkadan.switchycompose.MorphingSwitch
 import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
 import dev.muazkadan.switchycompose.TextSwitch
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-internal fun App() {
+fun App() {
     MaterialTheme {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()

@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/muazkadan/switchy-compose.svg)](https://jitpack.io/#muazkadan/switchy-compose)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.muazkadan/switchy-compose)](https://central.sonatype.com/search?q=switchy-compose)
-[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
 [![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-blue.svg)](https://kotlinlang.org/docs/multiplatform.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -43,6 +43,13 @@ A modern, customizable switch component library for Jetpack Compose that provide
 - **Gradle Version Catalogs** - Modern dependency management
 
 ## 📦 Installation
+
+### Requirements
+
+Releases after 0.7.2 are built with Compose Multiplatform 1.12 and require:
+
+- **Android:** `compileSdk` 37 or higher (required by Compose 1.12), `minSdk` 23
+- **iOS / macOS:** Apple Silicon targets only (`iosArm64`, `iosSimulatorArm64`, `macosArm64`), since Compose Multiplatform no longer publishes `iosX64` or `macosX64`
 
 ### Option 1: Maven Central (Recommended)
 
@@ -275,7 +282,7 @@ Have an awesome custom Compose switch you'd like to share? We'd love to include 
 
 1. Ensure your switch is built with Jetpack Compose and follows Kotlin coding conventions.
 2. Provide a clear API for your switch, similar to existing variants (e.g., `TextSwitch`, `ISwitch`).
-3. Include documentation and a demo in the `app` module to showcase your switch.
+3. Include documentation and a demo in the shared `app` module to showcase your switch.
 4. Submit a Pull Request with your implementation, and we'll review it for inclusion.
 
 ## 📱 Demo App
@@ -284,7 +291,7 @@ The project includes a demo app showcasing all switch variants. To run the demo:
 
 1. Clone the repository
 2. Open in Android Studio
-3. Run the `app` module
+3. Run the `androidApp` module for Android. The shared demo UI lives in `app`, which also has the desktop, web, iOS and macOS entry points.
 
 ### Development Setup
 

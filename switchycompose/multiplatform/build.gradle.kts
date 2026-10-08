@@ -1,13 +1,11 @@
-@file:OptIn(ExperimentalWasmDsl::class, ExperimentalComposeLibrary::class)
+@file:OptIn(ExperimentalWasmDsl::class)
 
-import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.com.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.vanniktech.mavenPublish)
@@ -18,17 +16,27 @@ version = "0.7.2"
 
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    android {
+        namespace = "dev.muazkadan.switchycompose"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
-    js { browser() }
+    // Compose UI tests on web need an executable binary so the Skiko runtime
+    // is bundled with the tests (CMP-4906). The published artifact is still a klib.
+    js {
+        browser()
+        binaries.executable()
+    }
 
-    wasmJs { browser() }
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
 
     listOf(
         iosArm64(),
@@ -51,25 +59,17 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
+        commonMain.dependencies {
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.compose.material.iconsExtended)
         }
-
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.uiToolingPreview)
-                implementation(compose.materialIconsExtended)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-                implementation(compose.uiTest)
-            }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.compose.ui.test)
         }
 
         jvmMain.dependencies {
@@ -78,16 +78,11 @@ kotlin {
     }
 }
 
-android {
-    namespace = "dev.muazkadan.switchycompose"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+// Compose UI tests can't initialise Skiko under Kotlin/JS in Compose 1.12 (CMP-4906).
+// The fix (compose-multiplatform-core#3316) ships after 1.12.x; re-enable once we upgrade.
+// The same tests still run in the browser on wasmJs.
+tasks.named("jsBrowserTest") {
+    enabled = false
 }
 
 mavenPublishing {
@@ -132,5 +127,6 @@ mavenPublishing {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    // Compose preview tooling for the IDE, kept off the published API
+    "androidRuntimeClasspath"(libs.compose.ui.tooling)
 }
