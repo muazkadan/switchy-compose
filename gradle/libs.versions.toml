@@ -1,9 +1,9 @@
 [versions]
-agp = "8.13.2"
+agp = "9.4.1"
 kotlin = "2.4.20"
 compose-activity = "1.12.4"
 android-minSdk = "23"
-android-compileSdk = "36"
+android-compileSdk = "37"
 compose-multiplatform = "1.12.1"
 androidx-lifecycle = "2.9.6"
 kotlinx-coroutines = "1.10.2"
@@ -22,4 +22,4 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.37.0" }
