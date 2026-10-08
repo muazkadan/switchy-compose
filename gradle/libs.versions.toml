@@ -8,7 +8,7 @@ compose-multiplatform = "1.12.1"
 compose-material3 = "1.9.0"
 # Pinned upstream: no longer updated after 1.7.3
 compose-material-icons = "1.7.3"
-androidx-lifecycle = "2.9.6"
+androidx-lifecycle = "2.11.0"
 kotlinx-coroutines = "1.11.0"
 
 [libraries]
