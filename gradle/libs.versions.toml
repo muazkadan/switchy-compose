@@ -5,10 +5,23 @@ compose-activity = "1.12.4"
 android-minSdk = "23"
 android-compileSdk = "37"
 compose-multiplatform = "1.12.1"
+compose-material3 = "1.9.0"
+# Pinned upstream: no longer updated after 1.7.3
+compose-material-icons = "1.7.3"
 androidx-lifecycle = "2.9.6"
 kotlinx-coroutines = "1.10.2"
 
 [libraries]
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
+compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
+compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose-multiplatform" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+compose-components-uiToolingPreview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose-multiplatform" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
+compose-material-iconsExtended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }

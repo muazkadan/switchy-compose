@@ -42,6 +42,6 @@ kotlin {
 dependencies {
     implementation(project(":app"))
     implementation(libs.compose.activity)
-    implementation(compose.preview)
-    debugImplementation(compose.uiTooling)
+    implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 }

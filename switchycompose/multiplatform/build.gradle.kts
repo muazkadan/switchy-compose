@@ -1,6 +1,5 @@
-@file:OptIn(ExperimentalWasmDsl::class, ExperimentalComposeLibrary::class)
+@file:OptIn(ExperimentalWasmDsl::class)
 
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -53,20 +52,20 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.compose.ui.tooling.preview)
         }
 
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.materialIconsExtended)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.uiToolingPreview)
+            implementation(libs.compose.material.iconsExtended)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(compose.uiTest)
+            implementation(libs.compose.ui.test)
         }
 
         jvmMain.dependencies {
@@ -118,5 +117,5 @@ mavenPublishing {
 
 dependencies {
     // Compose preview tooling for the IDE, kept off the published API
-    "androidRuntimeClasspath"(compose.uiTooling)
+    "androidRuntimeClasspath"(libs.compose.ui.tooling)
 }
