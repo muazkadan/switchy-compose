@@ -39,7 +39,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-internal fun App() {
+fun App() {
     MaterialTheme {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()

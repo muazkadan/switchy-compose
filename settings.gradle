@@ -13,4 +13,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "switchycomposedemo"
 include ':app'
+include ':androidApp'
 include ':switchycompose:multiplatform'

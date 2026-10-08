@@ -56,21 +56,17 @@ kotlin {
             implementation(compose.preview)
         }
 
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.uiToolingPreview)
-                implementation(compose.materialIconsExtended)
-            }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.materialIconsExtended)
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-                implementation(compose.uiTest)
-            }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(compose.uiTest)
         }
 
         jvmMain.dependencies {
