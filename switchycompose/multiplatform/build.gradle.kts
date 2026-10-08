@@ -26,9 +26,17 @@ kotlin {
         }
     }
 
-    js { browser() }
+    // Compose UI tests on web need an executable binary so the Skiko runtime
+    // is bundled with the tests (CMP-4906). The published artifact is still a klib.
+    js {
+        browser()
+        binaries.executable()
+    }
 
-    wasmJs { browser() }
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
 
     listOf(
         iosArm64(),
@@ -68,6 +76,13 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
     }
+}
+
+// Compose UI tests can't initialise Skiko under Kotlin/JS in Compose 1.12 (CMP-4906).
+// The fix (compose-multiplatform-core#3316) ships after 1.12.x; re-enable once we upgrade.
+// The same tests still run in the browser on wasmJs.
+tasks.named("jsBrowserTest") {
+    enabled = false
 }
 
 mavenPublishing {
