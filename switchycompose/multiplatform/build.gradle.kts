@@ -1,13 +1,12 @@
 @file:OptIn(ExperimentalWasmDsl::class, ExperimentalComposeLibrary::class)
 
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.com.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.vanniktech.mavenPublish)
@@ -18,9 +17,11 @@ version = "0.7.2"
 
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    android {
+        namespace = "dev.muazkadan.switchycompose"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -78,18 +79,6 @@ kotlin {
     }
 }
 
-android {
-    namespace = "dev.muazkadan.switchycompose"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
 mavenPublishing {
     publishToMavenCentral()
 
@@ -132,5 +121,6 @@ mavenPublishing {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    // Compose preview tooling for the IDE, kept off the published API
+    "androidRuntimeClasspath"(compose.uiTooling)
 }
