@@ -118,6 +118,21 @@ class HtmlSwitchControllerTest {
     }
 
     @Test
+    fun contentDescriptionNamesInput() {
+        controller.update(checked = false, enabled = true, onCheckedChange = { }, contentDescription = "Wi-Fi")
+
+        assertEquals("Wi-Fi", controller.input.getAttribute("aria-label"))
+    }
+
+    @Test
+    fun clearingContentDescriptionRemovesLabel() {
+        controller.update(checked = false, enabled = true, onCheckedChange = { }, contentDescription = "Wi-Fi")
+        controller.update(checked = false, enabled = true, onCheckedChange = { }, contentDescription = null)
+
+        assertNull(controller.input.getAttribute("aria-label"))
+    }
+
+    @Test
     fun fallbackStylesInputAsSwitch() {
         val fallback = attachedController(nativeSwitchSupported = false)
         val input = fallback.input

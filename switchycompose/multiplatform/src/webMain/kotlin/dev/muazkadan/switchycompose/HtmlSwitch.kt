@@ -28,6 +28,9 @@ import org.w3c.dom.events.Event
  * @param onCheckedChange Callback invoked when the user toggles the switch. If null, the switch will be non-interactive.
  * @param modifier The modifier to be applied to the switch.
  * @param enabled Whether the switch is enabled and can be interacted with. Default is true.
+ * @param contentDescription The accessible name of the switch, applied as `aria-label`. The HTML
+ * input is outside Compose's semantics tree, so a visible Compose label next to it doesn't name
+ * it for assistive technologies.
  */
 @ExperimentalSwitchyApi
 @OptIn(ExperimentalComposeUiApi::class)
@@ -37,6 +40,7 @@ fun HtmlSwitch(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    contentDescription: String? = null,
 ) {
     // The element isn't reused (no onReset), so it lives exactly as long as this controller
     val controller = remember { HtmlSwitchController() }
@@ -44,7 +48,7 @@ fun HtmlSwitch(
     HtmlElementView(
         factory = { controller.container },
         modifier = modifier.size(width = 51.dp, height = 31.dp),
-        update = { controller.update(checked, enabled, onCheckedChange) },
+        update = { controller.update(checked, enabled, onCheckedChange, contentDescription) },
     )
 }
 
@@ -88,7 +92,12 @@ internal class HtmlSwitchController(
 
     private var checked = false
 
-    fun update(checked: Boolean, enabled: Boolean, onCheckedChange: ((Boolean) -> Unit)?) {
+    fun update(
+        checked: Boolean,
+        enabled: Boolean,
+        onCheckedChange: ((Boolean) -> Unit)?,
+        contentDescription: String? = null,
+    ) {
         this.checked = checked
         this.onCheckedChange = onCheckedChange
         input.checked = checked
@@ -101,6 +110,11 @@ internal class HtmlSwitchController(
         } else {
             input.removeAttribute("aria-readonly")
             input.style.cursor = "pointer"
+        }
+        if (contentDescription == null) {
+            input.removeAttribute("aria-label")
+        } else {
+            input.setAttribute("aria-label", contentDescription)
         }
     }
 
