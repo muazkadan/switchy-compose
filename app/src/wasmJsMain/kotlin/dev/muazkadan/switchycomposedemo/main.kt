@@ -27,12 +27,12 @@ fun main() {
                     contentAlignment = Alignment.Center
                 ) {
                     PhoneFrame {
-                        App()
+                        App(platformItems = { htmlSwitchItem() })
                     }
                 }
             } else {
                 // Small screen (phone) - show App directly without PhoneFrame
-                App()
+                App(platformItems = { htmlSwitchItem() })
             }
         }
     }

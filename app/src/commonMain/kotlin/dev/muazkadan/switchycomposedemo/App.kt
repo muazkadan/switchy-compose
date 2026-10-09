@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
 import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -37,9 +38,14 @@ import dev.muazkadan.switchycompose.NativeSwitch
 import dev.muazkadan.switchycompose.SquareSwitch
 import dev.muazkadan.switchycompose.TextSwitch
 
+/**
+ * The demo grid of every switch.
+ *
+ * @param platformItems Extra items for switches that only exist on some platforms.
+ */
 @Composable
 @Preview
-fun App() {
+fun App(platformItems: LazyGridScope.() -> Unit = {}) {
     MaterialTheme {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()
@@ -267,6 +273,7 @@ fun App() {
                         )
                     }
                 }
+                platformItems()
             }
         }
     }
