@@ -15,8 +15,11 @@ import org.w3c.dom.events.Event
 /**
  * A switch rendered as a native HTML `<input type="checkbox" role="switch" switch>`.
  *
- * Browsers that support the `switch` attribute (such as Safari) draw it as a switch; others
- * draw a checkbox. Assistive technologies announce it as a switch either way.
+ * Browsers that support the `switch` attribute (such as Safari) draw their native switch. In
+ * other browsers the same input is styled as a switch with CSS; its colours can be customised
+ * with the `--switchy-html-switch-on`, `--switchy-html-switch-off`, `--switchy-html-switch-thumb`
+ * and `--switchy-html-switch-focus` CSS custom properties. Assistive technologies announce it as
+ * a switch either way.
  *
  * The element is placed over the Compose canvas (see [HtmlElementView]): Compose content can't
  * be drawn on top of it, and it receives input in its area instead of Compose.
@@ -51,7 +54,9 @@ fun HtmlSwitch(
  * it; they request the new value through [onCheckedChange], and the input only changes when
  * [update] is called with the new state.
  */
-internal class HtmlSwitchController {
+internal class HtmlSwitchController(
+    nativeSwitchSupported: Boolean = isNativeSwitchInputSupported(),
+) {
 
     val input: HTMLInputElement = (document.createElement("input") as HTMLInputElement).apply {
         type = "checkbox"
@@ -73,6 +78,13 @@ internal class HtmlSwitchController {
 
     var onCheckedChange: ((Boolean) -> Unit)? = null
         private set
+
+    init {
+        if (!nativeSwitchSupported) {
+            HtmlSwitchStyles.install()
+            input.classList.add(HtmlSwitchStyles.CLASS_NAME)
+        }
+    }
 
     private var checked = false
 

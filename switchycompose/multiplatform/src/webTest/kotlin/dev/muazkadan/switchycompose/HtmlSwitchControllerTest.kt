@@ -1,11 +1,14 @@
 package dev.muazkadan.switchycompose
 
 import kotlinx.browser.document
+import kotlinx.browser.window
+import org.w3c.dom.HTMLInputElement
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -113,4 +116,66 @@ class HtmlSwitchControllerTest {
         assertTrue(requests.isEmpty())
         assertFalse(controller.input.checked)
     }
+
+    @Test
+    fun fallbackStylesInputAsSwitch() {
+        val fallback = attachedController(nativeSwitchSupported = false)
+        val input = fallback.input
+
+        assertTrue(input.classList.contains(HtmlSwitchStyles.CLASS_NAME))
+        assertEquals("none", computed(input, "appearance"))
+        assertEquals("40px", computed(input, "width"))
+        assertEquals("24px", computed(input, "height"))
+
+        fallback.container.remove()
+    }
+
+    @Test
+    fun fallbackReflectsCheckedState() {
+        val fallback = attachedController(nativeSwitchSupported = false)
+        val input = fallback.input
+
+        fallback.update(checked = false, enabled = true, onCheckedChange = { })
+        val off = computed(input, "background-color") to computed(input, "background-position")
+        fallback.update(checked = true, enabled = true, onCheckedChange = { })
+        val on = computed(input, "background-color") to computed(input, "background-position")
+
+        assertNotEquals(off.first, on.first, "track colour should change")
+        assertNotEquals(off.second, on.second, "thumb should move")
+
+        fallback.container.remove()
+    }
+
+    @Test
+    fun stylesheetIsInstalledOnce() {
+        val first = attachedController(nativeSwitchSupported = false)
+        val second = attachedController(nativeSwitchSupported = false)
+
+        assertEquals(
+            1,
+            document.querySelectorAll("#${HtmlSwitchStyles.STYLE_ELEMENT_ID}").length,
+        )
+
+        first.container.remove()
+        second.container.remove()
+    }
+
+    @Test
+    fun nativeSwitchIsLeftUnstyled() {
+        val native = attachedController(nativeSwitchSupported = true)
+
+        assertFalse(native.input.classList.contains(HtmlSwitchStyles.CLASS_NAME))
+
+        native.container.remove()
+    }
+
+    private fun attachedController(nativeSwitchSupported: Boolean) =
+        HtmlSwitchController(nativeSwitchSupported).also {
+            // Read final values instead of mid-transition ones
+            it.input.style.setProperty("transition", "none")
+            document.body!!.appendChild(it.container)
+        }
+
+    private fun computed(input: HTMLInputElement, property: String): String =
+        window.getComputedStyle(input).getPropertyValue(property)
 }

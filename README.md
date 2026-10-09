@@ -259,7 +259,18 @@ NativeSwitch(
 
 ### HtmlSwitch (Web, experimental)
 
-Available in `webMain`, `jsMain` and `wasmJsMain`. Renders a native HTML `<input type="checkbox" role="switch" switch>`. Browsers that support the `switch` attribute (such as Safari) draw a switch; others draw a checkbox. Assistive technologies announce it as a switch either way.
+Available in `webMain`, `jsMain` and `wasmJsMain`. Renders a native HTML `<input type="checkbox" role="switch" switch>`. Browsers that support the `switch` attribute (such as Safari) draw their native switch; in other browsers the same input is styled as a switch with CSS. Assistive technologies announce it as a switch either way.
+
+Customise the CSS-styled switch with custom properties:
+
+```css
+:root {
+  --switchy-html-switch-on: #34c759;    /* track when checked */
+  --switchy-html-switch-off: #c7c7cc;   /* track when unchecked */
+  --switchy-html-switch-thumb: #ffffff;
+  --switchy-html-switch-focus: Highlight;
+}
+```
 
 ```kotlin
 @OptIn(ExperimentalSwitchyApi::class)
