@@ -2,6 +2,7 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -88,14 +89,18 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+
+        webMain.dependencies {
+            implementation(libs.kotlinx.browser)
+        }
     }
 }
 
 // Compose UI tests can't initialise Skiko under Kotlin/JS in Compose 1.12 (CMP-4906).
-// The fix (compose-multiplatform-core#3316) ships after 1.12.x; re-enable once we upgrade.
-// The same tests still run in the browser on wasmJs.
-tasks.named("jsBrowserTest") {
-    enabled = false
+// The fix (compose-multiplatform-core#3316) ships after 1.12.x; run every test again once we
+// upgrade. Until then run only the DOM-based tests on JS; all tests still run on wasmJs.
+tasks.named<KotlinJsTest>("jsBrowserTest") {
+    filter.includeTestsMatching("dev.muazkadan.switchycompose.HtmlSwitchControllerTest")
 }
 
 mavenPublishing {
