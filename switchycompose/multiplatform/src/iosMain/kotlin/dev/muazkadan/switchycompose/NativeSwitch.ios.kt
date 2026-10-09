@@ -11,20 +11,51 @@ import androidx.compose.ui.viewinterop.UIKitView
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
-import platform.UIKit.UISwitch
 import platform.UIKit.UIControlEventValueChanged
+import platform.UIKit.UISwitch
 import platform.darwin.NSObject
+import platform.objc.sel_registerName
 
-private class SwitchTarget(
-    private val onCheckedChange: ((Boolean) -> Unit)?
-) : NSObject() {
+/**
+ * Bridges a [UISwitch] to Compose. One instance stays attached to the switch for its whole
+ * lifetime and always forwards to the latest [onCheckedChange].
+ */
+@OptIn(BetaInteropApi::class, ExperimentalForeignApi::class)
+internal class NativeSwitchController : NSObject() {
+
+    var onCheckedChange: ((Boolean) -> Unit)? = null
+
+    fun attach(switch: UISwitch) {
+        switch.addTarget(
+            target = this,
+            action = sel_registerName("switchValueChanged:"),
+            forControlEvents = UIControlEventValueChanged
+        )
+    }
+
+    fun update(
+        switch: UISwitch,
+        checked: Boolean,
+        enabled: Boolean,
+        onCheckedChange: ((Boolean) -> Unit)?,
+    ) {
+        this.onCheckedChange = onCheckedChange
+        if (switch.isOn() != checked) {
+            switch.setOn(checked, animated = true)
+        }
+        switch.setEnabled(enabled)
+        // Like Material3's Switch, a null callback makes the switch non-interactive
+        // without drawing it as disabled
+        switch.setUserInteractionEnabled(onCheckedChange != null)
+    }
+
     @ObjCAction
     fun switchValueChanged(sender: UISwitch) {
         onCheckedChange?.invoke(sender.isOn())
     }
 }
 
-@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 actual fun NativeSwitch(
     checked: Boolean,
@@ -32,56 +63,21 @@ actual fun NativeSwitch(
     modifier: Modifier,
     enabled: Boolean
 ) {
-    // Remember the target to ensure it's retained properly
-    val target = remember(onCheckedChange) {
-        SwitchTarget(onCheckedChange)
-    }
+    // Retained for the switch's lifetime; UIKit only holds a weak reference to targets
+    val controller = remember { NativeSwitchController() }
 
     UIKitView(
         factory = {
-            val switch = UISwitch()
-
-            // Set initial state
-            switch.setOn(checked, animated = false)
-            switch.setEnabled(enabled)
-
-            // Size the switch to fit its content
-            switch.sizeToFit()
-
-            // Add target-action for value changes
-            onCheckedChange?.let {
-                switch.addTarget(
-                    target = target,
-                    action = platform.objc.sel_registerName("switchValueChanged:"),
-                    forControlEvents = UIControlEventValueChanged
-                )
+            UISwitch().apply {
+                setOn(checked, animated = false)
+                controller.attach(this)
             }
-
-            switch
         },
         modifier = modifier
-            // Provide default intrinsic size for UISwitch (51x31 points)
+            // Default intrinsic size of UISwitch (51x31 points)
             .size(width = 51.dp, height = 31.dp),
-        update = { view ->
-            val switch = view
-
-            // Update switch state if it differs from current state
-            if (switch.isOn() != checked) {
-                switch.setOn(checked, animated = true)
-            }
-
-            // Update enabled state
-            switch.setEnabled(enabled)
-
-            // Update target-action when onCheckedChange changes
-            switch.removeTarget(target, action = null, forControlEvents = UIControlEventValueChanged)
-            onCheckedChange?.let {
-                switch.addTarget(
-                    target = target,
-                    action = platform.objc.sel_registerName("switchValueChanged:"),
-                    forControlEvents = UIControlEventValueChanged
-                )
-            }
+        update = { switch ->
+            controller.update(switch, checked, enabled, onCheckedChange)
         },
         properties = UIKitInteropProperties(
             placedAsOverlay = true,
