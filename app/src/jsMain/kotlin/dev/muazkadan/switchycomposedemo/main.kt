@@ -10,7 +10,7 @@ fun main() {
     onWasmReady {
         val body = document.body ?: return@onWasmReady
         ComposeViewport(body) {
-            App()
+            App(platformItems = { htmlSwitchItem() })
         }
     }
 }

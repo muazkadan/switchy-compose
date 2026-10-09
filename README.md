@@ -32,7 +32,8 @@ A modern, customizable switch component library for Jetpack Compose that provide
 5. **CustomISwitch** - iOS-style switch with custom content
 6. **CustomSwitch** - Fully customizable switch with custom content
 7. **SquareSwitch** - Modern square-style switch
-8. **NativeSwitch** - Platform-specific native switch implementation (Material3 on Android, UIKit on iOS)
+8. **NativeSwitch** - Platform-specific native switch (UIKit on iOS, Swing on desktop, Material3 on Android, macOS and web)
+9. **HtmlSwitch** *(web only, experimental)* - Native HTML switch input for JS and Wasm
 
 ## 🛠 Technology Stack
 
@@ -255,6 +256,36 @@ NativeSwitch(
     enabled = true
 )
 ```
+
+### HtmlSwitch (Web, experimental)
+
+Available in `webMain`, `jsMain` and `wasmJsMain`. Renders a native HTML `<input type="checkbox" role="switch" switch>`. Browsers that support the `switch` attribute (such as Safari) draw their native switch; in other browsers the same input is styled as a switch with CSS. Assistive technologies announce it as a switch either way.
+
+Customise the CSS-styled switch with custom properties:
+
+```css
+:root {
+  --switchy-html-switch-on: #34c759;    /* track when checked */
+  --switchy-html-switch-off: #c7c7cc;   /* track when unchecked */
+  --switchy-html-switch-thumb: #ffffff;
+  --switchy-html-switch-focus: Highlight;
+}
+```
+
+```kotlin
+@OptIn(ExperimentalSwitchyApi::class)
+@Composable
+fun Settings() {
+    var checked by rememberSaveable { mutableStateOf(false) }
+
+    HtmlSwitch(
+        checked = checked,
+        onCheckedChange = { checked = it },
+    )
+}
+```
+
+> **Note:** `HtmlSwitch` uses Compose's experimental `HtmlElementView`. The HTML element sits on top of the Compose canvas, so Compose content such as dialogs or menus can't be drawn over it. Use Material3-based `NativeSwitch` where that matters.
 
 ## 🎨 Customization
 
