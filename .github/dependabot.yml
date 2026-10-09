@@ -11,3 +11,7 @@ updates:
       interval: "daily"
     rebase-strategy: "disabled"
 
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
