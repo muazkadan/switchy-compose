@@ -281,6 +281,8 @@ fun Settings() {
     HtmlSwitch(
         checked = checked,
         onCheckedChange = { checked = it },
+        // Accessible name (aria-label): the HTML input isn't part of Compose's semantics tree
+        contentDescription = "Notifications",
     )
 }
 ```

@@ -30,7 +30,8 @@ internal fun LazyGridScope.htmlSwitchItem() {
                 checked = htmlSwitchValue,
                 onCheckedChange = {
                     htmlSwitchValue = it
-                }
+                },
+                contentDescription = "HtmlSwitch"
             )
         }
     }
