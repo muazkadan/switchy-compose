@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# A new push to a pull request cancels its previous, now outdated, run
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  # JVM, Android and web: fast on Linux
+  jvm-android-web:
+    name: JVM, Android & Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+
+      # Caches Gradle and validates the wrapper jar against Gradle's checksums
+      - uses: gradle/actions/setup-gradle@v6
+
+      # Ubuntu 24.04 blocks the unprivileged user namespaces Chrome's sandbox needs,
+      # which the headless Chrome used by the browser tests can't start without
+      - name: Allow Chrome sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Build and test
+        run: >
+          ./gradlew --continue
+          :switchycompose:multiplatform:jvmTest
+          :switchycompose:multiplatform:wasmJsBrowserTest
+          :switchycompose:multiplatform:jsBrowserTest
+          :switchycompose:multiplatform:assembleAndroidMain
+          :androidApp:assembleDebug
+          :androidApp:lintDebug
+          :app:compileKotlinDesktop
+          :app:compileKotlinWasmJs
+          :app:compileKotlinJs
+          kotlinStoreYarnLock
+          kotlinWasmStoreYarnLock
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports-jvm-android-web
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          retention-days: 7
+
+  # iOS and macOS: needs a macOS runner. Release framework links are slow and only
+  # checked by the full build on main.
+  apple:
+    name: iOS & macOS
+    runs-on: macos-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      # Kotlin/Native toolchain and dependencies, which setup-gradle doesn't cache
+      - uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
+
+      - name: Build and test
+        run: >
+          ./gradlew --continue
+          :switchycompose:multiplatform:iosSimulatorArm64Test
+          :switchycompose:multiplatform:macosArm64Test
+          :switchycompose:multiplatform:compileKotlinIosArm64
+          :app:compileKotlinIosSimulatorArm64
+          :app:compileKotlinMacosArm64
+          :app:linkDebugFrameworkIosSimulatorArm64
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports-apple
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          retention-days: 7
+
+  # Everything, including release links and lint, after changes land on main
+  full-build:
+    name: Full build
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: macos-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Upload reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports-full-build
+          path: |
+            **/build/reports/
+            **/build/test-results/
+          retention-days: 7
