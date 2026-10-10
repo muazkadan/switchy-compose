@@ -47,7 +47,7 @@ A modern, customizable switch component library for Jetpack Compose that provide
 
 ### Requirements
 
-Releases after 0.7.2 are built with Compose Multiplatform 1.12 and require:
+Starting with 0.8.0, the library is built with Compose Multiplatform 1.12 and requires:
 
 - **Android:** `compileSdk` 37 or higher (required by Compose 1.12), `minSdk` 23
 - **iOS / macOS:** Apple Silicon targets only (`iosArm64`, `iosSimulatorArm64`, `macosArm64`), since Compose Multiplatform no longer publishes `iosX64` or `macosX64`
@@ -60,7 +60,7 @@ The library is available on Maven Central. No additional repository setup is req
 
 ```kotlin
 dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.7.2")
+    implementation("dev.muazkadan:switchy-compose:0.8.0")
 }
 ```
 
@@ -68,7 +68,7 @@ dependencies {
 
 ```kotlin
 commonMain.dependencies {
-    implementation("dev.muazkadan:switchy-compose:0.7.2")
+    implementation("dev.muazkadan:switchy-compose:0.8.0")
 }
 ```
 
@@ -105,7 +105,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.github.muazkadan:switchy-compose:0.7.2")
+    implementation("com.github.muazkadan:switchy-compose:0.8.0")
 }
 ```
 </details>
