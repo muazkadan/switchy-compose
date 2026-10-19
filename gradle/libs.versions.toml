@@ -4,7 +4,7 @@ kotlin = "2.4.20"
 compose-activity = "1.12.4"
 android-minSdk = "23"
 android-compileSdk = "37"
-compose-multiplatform = "1.12.1"
+compose-multiplatform = "1.12.2"
 compose-material3 = "1.9.0"
 # Pinned upstream: no longer updated after 1.7.3
 compose-material-icons = "1.7.3"
